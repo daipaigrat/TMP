@@ -1,0 +1,35 @@
+@startuml
+
+skinparam usecase {
+  Backgroundcolor LightBlue
+  BorderColor DarkSlateGray
+}
+
+actor Банкир
+
+Package "Участники" {
+  actor "Игрок" as P 
+  actor "Компьютер" as CP
+  }
+  
+rectangle Коробка {
+  usecase "Достать/убрать деньги" as дуд
+  usecase "Достать/убрать дома/отели" as дудо
+}
+
+rectangle Доска {
+  usecase "Кинуть кубики" as кк
+  usecase "Двинуть фишку" as дф
+  usecase "Купить недвижимость" as кн
+  usecase "Докупить дома/отели" as дд
+  usecase "Оплатить аренду" as оа
+  usecase "Переход хода" as пх
+  
+P --> Банкир
+CP --> Банкир
+Участники --> Доска: "Сделать ход"
+пх --> Участники: "Смена хода"
+Банкир --> дуд
+Банкир --> дудо
+
+@enduml
