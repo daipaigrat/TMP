@@ -1,0 +1,121 @@
+@startuml
+package Game {
+
+    class Board {
+        -currentPlayerIndex: int
+        -players: List<Player>
+        -locations: List<Location>
+        +getLocation(position: int): Location
+        +endTurn(): void
+        +rollDice(): int
+        +movePlayer(steps: int): void
+        +getCurrentPlayer(): Player
+        +getCurrentLocation(): Location
+        +buyProperty(player: Player, property: Property): void
+        +auctionProperty(property: Property): void
+    }
+
+    class Location {
+        -position: int
+        -name: String
+        -type: LocationType
+        -property: Property
+        -action: Action
+        +performAction(player: Player): void
+    }
+
+    enum LocationType {
+        STREET
+        RAILROAD
+        UTILITY
+        TAX
+        CHANCE
+        COMMUNITY_CHEST
+        JAIL
+        GO
+        FREE_PARKING
+        GO_TO_JAIL
+    }
+
+    enum Action {
+        COLLECT_MONEY
+        PAY_MONEY
+        ADVANCE
+        GO_BACK
+        NO_ACTION
+    }
+
+    class Property {
+        -name: String
+        -owner: Player
+        -price: int
+        -rent: int
+        -mortgaged: boolean
+        +payRent(): void
+        +mortgage(): void
+        +unmortgage(): void
+    }
+}
+
+package Players {
+    class AIPlayer {
+        -name: String
+        -piece: Piece
+        -cash: int
+        -properties: List<Property>
+        -inJail: boolean
+        -turnsInJail: int
+        +rollDice(): int
+        +move(steps: int): void
+        +buyProperty(property: Property): void
+        +payRent(rentAmount: int): void
+        +payTax(taxAmount: int): void
+        +goToJail(): void
+        +getOutOfJail(): void
+        +isBankrupt(): boolean
+    }
+
+ class Player {
+        -name: String
+        -piece: Piece
+        -cash: int
+        -properties: List<Property>
+        -inJail: boolean
+        -turnsInJail: int
+        +rollDice(): int
+        +move(steps: int): void
+        +buyProperty(property: Property): void
+        +payRent(rentAmount: int): void
+        +payTax(taxAmount: int): void
+        +goToJail(): void
+        +getOutOfJail(): void
+        +isBankrupt(): boolean
+    }
+}
+
+class Banker {
+        -player_name: String
+        }
+class Building {
+        -name: String
+        -amount: Int
+        }
+class Box {
+        -money: Int
+        -building: List<Building>
+        +take_money(money: int, player: getCurrentPlayer()): void
+        +give_money(money: int, player: getCurrentPlayer()): void
+        +take_building(buildingAmount: int, player: getCurrentPlayer(), building: Building): void
+        +give_building(buildingAmount: int, player: getCurrentPlayer(), building: Building): void
+        }
+Location -- Property
+Board "1" *-- "0..*" Player
+Board "1" *-- "0..*" AIPlayer
+Board "1" *-- "0..*" Location
+Player "1" *-- "0..*" Property
+AIPlayer "1" *-- "0..*" Property
+Player -> Banker
+AIPlayer -> Banker
+Banker -- Box
+Building -- Box
+@enduml
