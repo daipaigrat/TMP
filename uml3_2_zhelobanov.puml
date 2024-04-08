@@ -1,0 +1,29 @@
+@startuml
+node "Game" {
+  [Board]
+  [Location]
+  [Property]
+}
+
+node "Players" {
+  [Player]
+  [AIPlayer]
+}
+
+node "Bank" {
+  [Banker]
+  [Box]
+  [Building]
+}
+
+[Board] -- [Location]
+[Board] -- [Player]
+[Board] -- [AIPlayer]
+[Location] -- [Property]
+[Player] -- [Property]
+[AIPlayer] -- [Property]
+[Player] -- [Banker]
+[AIPlayer] -- [Banker]
+[Banker] -- [Box]
+[Building] -- [Box]
+@enduml

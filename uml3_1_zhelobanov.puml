@@ -1,0 +1,15 @@
+@startuml
+actor Banker
+actor "Player" as P
+actor "Computer" as CP
+
+P -> Board: "Make a move"
+CP -> Board: "Make a move"
+Board -> P: "Change turn"
+Board -> CP: "Change turn"
+P -> Banker: "Take/Put money"
+CP -> Banker: "Take/Put money"
+P -> Banker: "Take/Put houses/hotels"
+CP -> Banker: "Take/Put houses/hotels"
+@enduml
+
